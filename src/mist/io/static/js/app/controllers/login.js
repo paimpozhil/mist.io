@@ -18,9 +18,9 @@ define('app/controllers/login', ['ember'],
 
 
             /**
-             * 
+             *
              *  Methods
-             * 
+             *
              */
 
             open: function(callback) {
@@ -57,14 +57,24 @@ define('app/controllers/login', ['ember'],
 
 
             logout: function() {
-                window.location = (Cordova ? Cordova.baseURL : "") + '/logout';
+                if(Cordova){
+                    Mist.ajax.GET("/logout", {
+                        silent_redirect: "index.html"
+                    }).success(function(data){
+                        window.location = data.redirect;
+                    }).error(function(message){
+                        console.log(mesage);
+                    });
+                }
+                else
+                    window.location = '/logout';
             },
 
 
             /**
-             * 
+             *
              *  Pseudo-Private Methods
-             * 
+             *
              */
 
             _clear: function() {
@@ -85,9 +95,9 @@ define('app/controllers/login', ['ember'],
 
 
             /**
-             * 
+             *
              *  Observers
-             * 
+             *
              */
 
             formObserver: function() {

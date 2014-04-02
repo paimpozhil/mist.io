@@ -469,7 +469,7 @@ define( 'app', [
                     headers: {
                         'Csrf-Token': csrfToken
                     },
-                    data: JSON.stringify(data),
+                    'data': data,
                     complete: function(jqXHR) {
                         if (jqXHR.status == 200) {
                             if (ret.success)
