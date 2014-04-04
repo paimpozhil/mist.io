@@ -464,7 +464,7 @@ define( 'app', [
 //                }
 
                 var ajaxObject = {
-                    url: (Cordova ? Cordova.baseURL : "") + url,
+                    url: ( window.hasOwnProperty('Cordova') ? Cordova.baseURL : "") + url,
                     type: type,
                     headers: {
                         'Csrf-Token': csrfToken
