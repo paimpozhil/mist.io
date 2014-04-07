@@ -92,9 +92,20 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                 }
                 url = url + '?' + EncodeQueryData(params);
 
-                $('#hidden-shell').append(
-                    '<iframe id="' + command.id +'" src="' + url + '"></iframe>'
-                );
+                // In cordova we need to get content via ajax request
+                // because iframe causes problem with same origin policy
+                if (window.hasOwnProperty('Cordova')) {
+                  Mist.ajax.GET(url,{},{
+                    responseType: "RAW"
+                  }).success(function(data){
+                    $('#hidden-shell').append(data);
+                  });
+                } else {
+                    $('#hidden-shell').append(
+                      '<iframe id="' + command.id +'" src="' + url + '"></iframe>'
+                  );
+                }
+
                 
                 this.set('command', '');
                 this.set('commandHistoryIndex', -1);

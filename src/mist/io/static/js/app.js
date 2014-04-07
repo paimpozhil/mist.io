@@ -423,23 +423,24 @@ define( 'app', [
      *
      *  Ajax wrapper constructor
      *
+     *  Options: responseType(JSON|RAW) Default JSON
      */
 
     function AJAX (csrfToken) {
 
-        this.GET = function(url, data) {
-            return this.ajax('GET', url, data);
+        this.GET = function(url, data, options) {
+            return this.ajax('GET', url, data, options);
         };
-        this.PUT = function(url, data) {
-            return this.ajax('PUT', url, data);
+        this.PUT = function(url, data, options) {
+            return this.ajax('PUT', url, data, options);
         };
-        this.POST = function(url, data) {
-            return this.ajax('POST', url, data);
+        this.POST = function(url, data, options) {
+            return this.ajax('POST', url, data, options);
         };
-        this.DELETE = function(url, data) {
-            return this.ajax('DELETE', url, data);
+        this.DELETE = function(url, data, options) {
+            return this.ajax('DELETE', url, data, options);
         };
-        this.ajax = function(type, url, data) {
+        this.ajax = function(type, url, data, options) {
 
             var ret = {};
             var call = {};
@@ -472,8 +473,16 @@ define( 'app', [
                     'data': (type == "GET" ? data : JSON.stringify(data)),
                     complete: function(jqXHR) {
                         if (jqXHR.status == 200) {
-                            if (ret.success)
-                                ret.success(jqXHR.responseJSON);
+                            if (ret.success){
+                                if(options && 'responseType' in options){
+                                    if(options.responseType == "RAW")
+                                        ret.success(jqXHR.responseText);
+                                    else if(options.responseType == "JSON")
+                                        ret.success(jqXHR.responseJSON);
+                                }
+                                else
+                                    ret.success(jqXHR.responseJSON);
+                            }
                         } else if (ret.error) {
                             ret.error(jqXHR.responseText, jqXHR.status);
                         }
