@@ -16,10 +16,16 @@
 
         <div>{{EMAIL}}</div>
 
+        {{#if Mist.isCordova}}
+        <a href="javascript:void(0)" onClick="window.open('https://mistio.zendesk.com/access/login','_system')"
+           data-role="button"
+           data-mini="true">Support</a>
+        {{else}}
         <a href="https://mistio.zendesk.com/access/login"
            target="_blank"
            data-role="button"
            data-mini="true">Support</a>
+        {{/if}}
 
         {{#if Mist.authenticated}}
 
