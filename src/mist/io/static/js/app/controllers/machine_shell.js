@@ -94,7 +94,7 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
 
                 // In cordova we need to get content via ajax request
                 // because iframe causes problem with same origin policy
-                if (window.hasOwnProperty('Cordova')) {
+                if (Mist.isCordova) {
                   Mist.ajax.GET(url,{},{
                     responseType: "RAW"
                   }).success(function(data){

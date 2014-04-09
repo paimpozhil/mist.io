@@ -57,7 +57,7 @@ define('app/controllers/login', ['ember'],
 
 
             logout: function() {
-                if(Cordova){
+                if(Mist.isCordova){
                     Mist.ajax.GET("/logout", {
                         silent_redirect: "index.html"
                     }).success(function(data){

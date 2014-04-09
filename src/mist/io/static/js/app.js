@@ -165,6 +165,7 @@ define( 'app', [
 
         // Globals
         App.set('isCore', !!IS_CORE);
+        App.set('isCordova', window.hasOwnProperty('Cordova') );
         App.set('authenticated', AUTH || IS_CORE);
         App.set('ajax', new AJAX(CSRF_TOKEN));
         App.set('email', EMAIL);
@@ -465,7 +466,7 @@ define( 'app', [
 //                }
 
                 var ajaxObject = {
-                    url: ( window.hasOwnProperty('Cordova') ? Cordova.baseURL : "") + url,
+                    url: (Mist.isCordova ? Cordova.baseURL : "") + url,
                     type: type,
                     headers: {
                         'Csrf-Token': csrfToken
