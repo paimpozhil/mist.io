@@ -29,9 +29,16 @@
 
         {{#if Mist.authenticated}}
 
+          {{#if Mist.isCordova}}
+            <a data-role="button" data-mini="true"
+               {{bind-attr vhref="view.accountUrl"}}
+               {{bind-attr target="view.isNotCore"}}
+               onClick="window.open($(this).attr('vhref'),'_system')">Account</a>
+          {{else}}
             <a data-role="button" data-mini="true"
                {{bind-attr href="view.accountUrl"}}
                {{bind-attr target="view.isNotCore"}}>Account</a>
+          {{/if}}
 
             {{#if Mist.isCore}}
                 <button data-mini="true" {{action "logoutClicked" target="view"}}>Logout</a>
