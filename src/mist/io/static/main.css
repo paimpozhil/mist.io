@@ -200,12 +200,11 @@ textarea {
 /* Checkbox list
 -----------------------------------------------------------------------------------------------------------*/
 ul.checkbox-list li {
-    background: #eeeeee /*{c-bup-background-color}*/ linear-gradient( #fff /*{c-bup-background-start}*/, #f1f1f1 /*{c-bup-background-end}*/) !important;
     border: 1px #ccc solid;
     margin-top: -1px;
 }
 ul.checkbox-list li:hover {
-    background: #dfdfdf linear-gradient( #f6f6f6 /*{c-bhover-background-start}*/, #e0e0e0 /*{c-bhover-background-end}*/) !important;
+    background: #f4f4f4 !important;
 }
 ul.checkbox-list li a {
     padding-left: 0px !important;
