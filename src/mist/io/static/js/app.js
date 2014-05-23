@@ -164,17 +164,20 @@ define( 'app', [
 
 
         // Globals
+        var isCordova = window.hasOwnProperty('Cordova');
         App.set('isCore', !!IS_CORE);
-        App.set('isCordova', window.hasOwnProperty('Cordova') );
+        App.set('isCordova', isCordova );
         App.set('authenticated', AUTH || IS_CORE);
-        App.set('ajax', new AJAX(CSRF_TOKEN));
+        if (isCordova){
+            App.set('ajax', new AJAX(window.localStorage.csrf_token));
+        } else {
+            App.set('ajax', new AJAX(CSRF_TOKEN));    
+        }
         App.set('email', EMAIL);
         App.set('password', '');
         App.set('isClientMobile', (/iPhone|iPod|iPad|Android|BlackBerry|Windows Phone/).test(navigator.userAgent) );
         App.set('isJQMInitialized', false);
         window.Mist = App;
-
-        CSRF_TOKEN = null;
 
         // Ember routes and routers
 
