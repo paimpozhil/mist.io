@@ -14,17 +14,17 @@ class MyRequests(object):
         self.data = data
 
     def post(self):
-        response = requests.post(self.uri, data=self.data, headers=self.headers, timeout=self.timeout)
+        response = requests.post(self.uri, data=self.data, headers=self.headers, timeout=self.timeout, verify=False)
         return response
 
     def get(self):
-        response = requests.get(self.uri, data=self.data, headers=self.headers, timeout=self.timeout)
+        response = requests.get(self.uri, data=self.data, headers=self.headers, timeout=self.timeout, verify=False)
         return response
 
     def put(self):
-        response = requests.put(self.uri, data=self.data, headers=self.headers, timeout=self.timeout)
+        response = requests.put(self.uri, data=self.data, headers=self.headers, timeout=self.timeout, verify=False)
         return response
 
     def delete(self):
-        response = requests.delete(self.uri, data=self.data, headers=self.headers, timeout=self.timeout)
+        response = requests.delete(self.uri, data=self.data, headers=self.headers, timeout=self.timeout, verify=False)
         return response
