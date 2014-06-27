@@ -22,18 +22,10 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             callback: null,
             formReady: null,
 
-            newBackend: {
-                sshkey: null,
-                port: null,
-                provider: null,
-                apikey: null,
-                apisecret: null,
-                projectname: null,
-                url: null,
-                region: null,
-                tenant: null,
-                endpoint: null,
-            },
+
+            load: function () {
+                this.setupProviders();
+            }.on('init'),
 
 
             //
@@ -81,6 +73,24 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                 );
             },
 
+
+            setupProviders: function () {
+                for (var provider in this.providers) {
+                    provider = this.providers[provider];
+                    var keys = Object.keys(provider).filter(function (item) {
+                        return ! (provider[item] instanceof Function);
+                    });
+                    if (!(provider.clear instanceof Function))
+                        addClearFunction(provider, keys);
+                }
+                function addClearFunction(provider, fields) {
+                    provider.clear = function () {
+                        fields.forEach(function (field) {
+                            provider.set(field, null);
+                        });
+                    };
+                };
+            },
 
             //
             //
@@ -155,15 +165,51 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
 
             formObserver: function () {
                 Ember.run.once(this, '_updateFormReady');
-            }.observes('newBackendKey',
-                       'newBackendProvider',
-                       'newBackendFirstField',
-                       'newBackendSecondField',
-                       'newBackendProjectName',
-                       'newBackendDockerURL',
-                       'newBackendPort',
-                       'newBackendOpenStackURL',
-                       'newBackendOpenStackTenant')
+            },
+
+
+            //
+            //
+            //  Providers
+            //
+            //
+
+
+            providers: {
+
+                gce: Ember.Object.create({
+                    key: null,
+                    email: null,
+                    projectId: null,
+                }),
+
+                ec2: Ember.Object.create({
+                    apiKey: null,
+                    apiSecret: null,
+                }),
+
+                linode: Ember.Object.create({
+                    apiKey: null,
+                    username: null,
+                }),
+
+                softlayer: Ember.Object.create({
+                    apiKey: null,
+                    apiSecret: null,
+                }),
+
+/*
+                'ec2',
+                'linode',
+                'docker',
+                'hpcloud',
+                'openstack',
+                'softlayer',
+                'rackspace',
+                'nephoscale',
+                'bare_metal',
+                'digitalocean'*/
+            }
         });
     }
 );

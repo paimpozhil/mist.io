@@ -18,8 +18,12 @@ define('app/views/backend_add', ['app/views/panel', 'ember'],
             //
 
 
-            firstFieldLabel: 'API Key',
-            secondFieldLabel: 'API Secret',
+
+            //
+            //
+            //  Initialization
+            //
+            //
 
 
             //
@@ -65,6 +69,50 @@ define('app/views/backend_add', ['app/views/panel', 'ember'],
 
             actions: {
 
+                selectProvider: function (provider) {
+                    $('#backend-add .provider-form').hide();
+                    for (var p in Mist.backendAddController.providers) {
+                        if (provider.provider.indexOf(p) > - 1) {
+                            Mist.backendAddController.providers[p].clear();
+                            $('#backend-add-provider').collapsible('collapse');
+                            $('#backend-add-' + p).show();
+                            break;
+                        }
+                    };
+                    return;
+
+                    if (provider.provider.indexOf('docker') > -1) {
+                        this.set('firstFieldLabel', 'BasicAuth User (optional)');
+                        this.set('secondFieldLabel', 'BasicAuth Password (optional)');
+                        $('#common-bundle').hide();
+                        $('#docker-bundle').show();
+                        Mist.backendAddController.set('newBackendPort', 4243);
+                    } else if (provider.provider.indexOf('openstack') > -1) {
+                        this.set('firstFieldLabel', 'Username');
+                        this.set('secondFieldLabel', 'Password');
+
+                        //This is for HP Cloud specific
+                        if (provider.provider.indexOf('region-') > -1) {
+                            Mist.backendAddController.set('newBackendOpenStackURL', 'https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/tokens');
+                        } else {
+                            $('#opentack-advanced-wrapper').show();
+                        }
+                        $('#openstack-bundle').show();
+
+                    } else if (provider.provider.indexOf('bare_metal') > -1) {
+                        this.set('firstFieldLabel', 'Hostname');
+                        this.set('secondFieldLabel', 'User');
+                        Mist.backendAddController.set('newBackendSecondField', 'root');
+                        Mist.backendAddController.set('newBackendPort', 22);
+                        Ember.run.next(function () {
+                            $('#new-backend-key .ui-listview').listview('refresh');
+                            $('#new-backend-second-field').attr('type', '');
+                            $('#baremetal-bundle').show();
+                        });
+                    }
+                },
+
+/*
                 selectProvider: function(provider) {
 
                     Mist.backendAddController._clear();
@@ -138,7 +186,7 @@ define('app/views/backend_add', ['app/views/panel', 'ember'],
                             }
                     });
                 },
-
+*/
 
                 selectKey: function(key) {
                     $('#new-backend-key').collapsible('collapse');
@@ -164,7 +212,7 @@ define('app/views/backend_add', ['app/views/panel', 'ember'],
                 },
 
 
-                createKeyClicked: function() {
+                addKeyClicked: function() {
                     Mist.keyAddController.open( function (success, key) {
                         if (success) {
                             Mist.backendAddController.set('newBackendKey', key);
@@ -205,7 +253,7 @@ define('app/views/backend_add', ['app/views/panel', 'ember'],
 
             updateDoneButtonObserver: function() {
                 Ember.run.once(this, 'updateAddButton');
-            }.observes('Mist.backendsController.addingBackend', 'Mist.backendAddController.formReady')
+            }.observes('Mist.backendsController.addingBackend', 'Mist.backendAddController.formReady'),
         });
     }
 );

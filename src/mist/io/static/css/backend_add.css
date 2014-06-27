@@ -38,3 +38,7 @@
 #backend-add #docker-bundle {
     display: none;
 }
+
+#backend-add .provider-form {
+    display: none;
+}
