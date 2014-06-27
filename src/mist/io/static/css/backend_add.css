@@ -1,40 +1,40 @@
 
 /* Backend Add Panel CSS
 -----------------------------------------------------------------------------------------------------------*/
-#add-backend-panel #openstack-bundle {
+#backend-add #openstack-bundle {
     display: none;
 }
-#add-backend-panel #baremetal-bundle {
+#backend-add #baremetal-bundle {
     display: none;
 }
-#add-backend-panel label {
+#backend-add label {
     margin-top: 10px;
 }
-#add-backend-panel .select-listmenu {
+#backend-add .select-listmenu {
     height: 120px;
     overflow-y: scroll;
 }
-#add-backend-panel .ok-cancel {
+#backend-add .ok-cancel {
     margin-top: 30px;
 }
 
-#add-backend-panel .ui-slider {
+#backend-add .ui-slider {
     width: 200px;
 }
 
-#add-backend-panel #non-hp-cloud {
+#backend-add #non-hp-cloud {
     margin-top: 20px;
 }
 
-#add-backend-panel #opentack-advanced-wrapper {
+#backend-add #opentack-advanced-wrapper {
     text-align: center;
     margin-bottom: -20px;
 }
 
-#add-backend-panel #gce-bundle {
+#backend-add #gce-bundle {
     display: none;
 }
 
-#add-backend-panel #docker-bundle {
+#backend-add #docker-bundle {
     display: none;
 }
