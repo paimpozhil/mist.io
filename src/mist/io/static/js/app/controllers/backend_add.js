@@ -92,11 +92,13 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                 };
             },
 
+
             //
             //
             //  Pseudo-Private Methods
             //
             //
+
 
             _clear: function () {
 
@@ -177,12 +179,6 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
 
             providers: {
 
-                gce: Ember.Object.create({
-                    key: null,
-                    email: null,
-                    projectId: null,
-                }),
-
                 ec2: Ember.Object.create({
                     apiKey: null,
                     apiSecret: null,
@@ -198,17 +194,51 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                     apiSecret: null,
                 }),
 
-/*
-                'ec2',
-                'linode',
-                'docker',
-                'hpcloud',
-                'openstack',
-                'softlayer',
-                'rackspace',
-                'nephoscale',
-                'bare_metal',
-                'digitalocean'*/
+                rackspace: Ember.Object.create({
+                    apiKey: null,
+                    username: null,
+                }),
+
+                nephoscale: Ember.Object.create({
+                    username: null,
+                    password: null,
+                }),
+
+                digitalocean: Ember.Object.create({
+                    apiKey: null,
+                    clientId: null,
+                }),
+
+                gce: Ember.Object.create({
+                    key: null,
+                    email: null,
+                    projectId: null,
+                }),
+
+                docker: Ember.Object.create({
+                    host: null,
+                    port: null,
+                    user: null,
+                    password: null,
+                }),
+
+                openstack: Ember.Object.create({
+                    authURL: null,
+                    username: null,
+                    password: null,
+                    tenantName: null,
+
+                    opt_region: null,
+                    opt_computeEndpoint: null,
+                }),
+
+                bare_metal: Ember.Object.create({
+                    key: null,
+                    host: null,
+                    port: null,
+                    user: null,
+                    password: null,
+                })
             }
         });
     }
