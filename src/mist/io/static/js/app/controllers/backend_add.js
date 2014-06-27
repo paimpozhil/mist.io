@@ -18,20 +18,22 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             //
 
 
+            view: null,
             callback: null,
             formReady: null,
 
-            newBackendKey: null,
-            newBackendPort: null,
-            newBackendProvider: null,
-            newBackendFirstField: null,
-            newBackendSecondField: null,
-            newBackendProjectName: null,
-            newBackendDockerURL: null,
-            newBackendOpenStackURL: null,
-            newBackendOpenStackRegion: null,
-            newBackendOpenStackTenant: null,
-            newBackendOpenStackComputeEndpoint: null,
+            newBackend: {
+                sshkey: null,
+                port: null,
+                provider: null,
+                apikey: null,
+                apisecret: null,
+                projectname: null,
+                url: null,
+                region: null,
+                tenant: null,
+                endpoint: null,
+            },
 
 
             //
@@ -45,22 +47,12 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                 this._clear();
                 this._updateFormReady();
                 this.set('callback', callback);
-
-                $('#add-backend-panel').panel('open');
-                Ember.run.next(function () {
-                    $('.ui-page-active').height($('.ui-panel-open').height());
-                    $('body').css('overflow', 'auto');
-
-                    //This is the advanced section of OpenStack, by default
-                    //hidden
-                    $('#openstack-advanced').val('0').slider('refresh');
-                    $('#non-hp-cloud').hide();
-                });
+                this.view.open();
             },
 
 
             close: function () {
-                $('#add-backend-panel').panel('close');
+                this.view.close();
                 this._clear();
             },
 
@@ -109,16 +101,11 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                     .set('newBackendDockerURL', null)
                     .set('newBackendKey', {id: 'Select SSH Key'})
                     .set('newBackendProvider', {title: 'Select provider'});
-
-                // These should be in a view :(
-                $('#new-backend-key').collapsible('collapse').collapsible('option', 'collapsedIcon', 'carat-d');
-                $('#new-backend-provider').collapsible('collapse').collapsible('option', 'collapsedIcon', 'carat-d');
             },
 
 
             _updateFormReady: function () {
                 var ready = false;
-                info('hi', this.newBackendProvider.provider , this.newBackendDockerURL, this.newBackendPort)
                 if ('provider' in this.newBackendProvider) { // Filters out the "Select provider" dummy provider
 
                     if (this.newBackendProvider.provider == 'docker') {

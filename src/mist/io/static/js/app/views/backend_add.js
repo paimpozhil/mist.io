@@ -1,14 +1,14 @@
-define('app/views/backend_add', ['app/views/templated', 'ember'],
+define('app/views/backend_add', ['app/views/panel', 'ember'],
     //
     //  Add Backend View
     //
     //  @returns Class
     //
-    function(TemplatedView) {
+    function (PanelView) {
 
         'use strict';
 
-        return TemplatedView.extend({
+        return PanelView.extend({
 
 
             //
