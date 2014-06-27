@@ -1,15 +1,22 @@
 define('app/controllers/backend_add', ['app/models/backend', 'ember'],
-    /**
-     *  Backend Add Controller
-     *
-     *  @returns Class
-     */
+    //
+    //  Backend Add Controller
+    //
+    //  @returns Class
+    //
     function (Backend) {
+
+        'use strict';
+
         return Ember.Object.extend({
 
-            /**
-             *  Properties
-             */
+
+            //
+            //
+            //  Properties
+            //
+            //
+
 
             callback: null,
             formReady: null,
@@ -27,11 +34,12 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             newBackendOpenStackComputeEndpoint: null,
 
 
-            /**
-             *
-             *  Methods
-             *
-             */
+            //
+            //
+            //  Methods
+            //
+            //
+
 
             open: function (callback) {
                 this._clear();
@@ -82,11 +90,11 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             },
 
 
-            /**
-             *
-             *  Pseudo-Private Methods
-             *
-             */
+            //
+            //
+            //  Pseudo-Private Methods
+            //
+            //
 
             _clear: function () {
 
@@ -151,11 +159,12 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             },
 
 
-            /**
-             *
-             *  Observers
-             *
-             */
+            //
+            //
+            //  Observers
+            //
+            //
+
 
             formObserver: function () {
                 Ember.run.once(this, '_updateFormReady');
