@@ -84,7 +84,7 @@ define('app/controllers/backend_add', ['ember'],
                 for (var provider in this.providers) {
                     provider = that.providers[provider];
                     var keys = Object.keys(provider).filter(function (item) {
-                        return ! (provider[item] instanceof Function);
+                        return !(provider[item] instanceof Function);
                     });
                     if (!(provider.clear instanceof Function))
                         addClearFunction(provider, keys);
@@ -108,33 +108,34 @@ define('app/controllers/backend_add', ['ember'],
                         provider.clear();
                         that.set('selectedProvider', provider);
                         fields.forEach(function (field) {
-                            if (field.indexOf('opt_') != 0)
+                            if (isRequired(field))
                                 provider.addObserver(field, provider, 'updateReady');
                         });
-                        provider.updateReady();
                     }
                 };
                 function addUnselectFunction(provider, fields) {
                     provider.unselect = function () {
-                        fields.forEach(function (field) {
-                            if (field.indexOf('opt_') != 0) {
-                                provider.removeObserver(field, provider, 'updateReady');
-                            }
-                        });
                         provider.clear();
                         that.set('selectedProvider', null);
+                        fields.forEach(function (field) {
+                            if (isRequired(field))
+                                provider.removeObserver(field, provider, 'updateReady');
+                        });
                     }
                 };
                 function addUpdateReadyFunction(provider, fields) {
                     provider.updateReady = function () {
                         var ready = true;
-                        fields.forEach(function (field) {
-                            if (field.indexOf('opt_') != 0)
-                                if (!provider[field]) ready = false;
+                        fields.every(function (field) {
+                            if (isRequired(field) && !provider[field])
+                                return ready = false;
                         });
                         that.set('formReady', ready);
                     }
                 };
+                function isRequired(field) {
+                    return field.indexOf('opt_') != 0;
+                }
             },
 
             //
