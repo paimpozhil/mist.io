@@ -1,10 +1,10 @@
-define('app/controllers/backend_add', ['app/models/backend', 'ember'],
+define('app/controllers/backend_add', ['ember'],
     //
     //  Backend Add Controller
     //
     //  @returns Class
     //
-    function (Backend) {
+    function () {
 
         'use strict';
 
@@ -25,7 +25,7 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
 
 
             load: function () {
-                this.setupProviders();
+                this._setupProviders();
             }.on('init'),
 
 
@@ -60,9 +60,28 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             },
 
 
-            setupProviders: function () {
+            selectProvider: function (provider) {
+                if (this.selectedProvider)
+                    this.selectedProvider.unselect();
+                this.providers[provider].select();
+            },
+
+
+            //
+            //
+            //  Pseudo-Private Methods
+            //
+            //
+
+
+            _giveCallback: function (success, backend) {
+                if (this.callback) this.callback(success, backend);
+            },
+
+
+            _setupProviders: function () {
                 var that = this;
-                Object.keys(this.providers).forEach(function (provider) {
+                for (var provider in this.providers) {
                     provider = that.providers[provider];
                     var keys = Object.keys(provider).filter(function (item) {
                         return ! (provider[item] instanceof Function);
@@ -75,7 +94,7 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                         addUnselectFunction(provider, keys);
                     if (!(provider.updateReady instanceof Function))
                         addUpdateReadyFunction(provider, keys);
-                });
+                }
                 var that = this;
                 function addClearFunction(provider, fields) {
                     provider.clear = function () {
@@ -118,26 +137,6 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                 };
             },
 
-
-            selectProvider: function (provider) {
-                if (this.selectedProvider)
-                    this.selectedProvider.unselect();
-                this.providers[provider].select();
-            },
-
-
-            //
-            //
-            //  Pseudo-Private Methods
-            //
-            //
-
-
-            _giveCallback: function (success, backend) {
-                if (this.callback) this.callback(success, backend);
-            },
-
-
             //
             //
             //  Providers
@@ -145,7 +144,7 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
             //
 
 
-            providers: Ember.Object.create({
+            providers: {
 
                 ec2: Ember.Object.create({
                     apiKey: null,
@@ -206,7 +205,7 @@ define('app/controllers/backend_add', ['app/models/backend', 'ember'],
                     opt_region: null,
                     opt_computeEndpoint: null,
                 })
-            })
+            }
         });
     }
 );
