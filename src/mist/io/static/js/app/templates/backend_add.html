@@ -110,12 +110,12 @@
             <label for="backend-add-rackspace-username">2. Username:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-rackspace-username"
-                    valueBinding="Mist.backendAddController.rackspace.username"}}
+                    valueBinding="Mist.backendAddController.providers.rackspace.username"}}
             <label for="backend-add-rackspace-api-key">3. API Key:</label>
             {{view Mist.TextField data-theme="a"
                     type="password"
                     id="backend-add-rackspace-api-key"
-                    valueBinding="Mist.backendAddController.rackspace.apiKey"}}
+                    valueBinding="Mist.backendAddController.providers.rackspace.apiKey"}}
         </div>
 
         <!--
@@ -128,12 +128,12 @@
             <label for="backend-add-nephoscale-username">2. Username:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-nephoscale-username"
-                    valueBinding="Mist.backendAddController.nephoscale.username"}}
+                    valueBinding="Mist.backendAddController.providers.nephoscale.username"}}
             <label for="backend-add-nephoscale-password">3. Password:</label>
             {{view Mist.TextField data-theme="a"
                     type="password"
                     id="backend-add-nephoscale-password"
-                    valueBinding="Mist.backendAddController.nephoscale.password"}}
+                    valueBinding="Mist.backendAddController.providers.nephoscale.password"}}
         </div>
 
         <!--
@@ -146,12 +146,12 @@
             <label for="backend-add-digitalocean-client-id">2. Client Id:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-digitalocean-client-id"
-                    valueBinding="Mist.backendAddController.digitalocean.clientId"}}
+                    valueBinding="Mist.backendAddController.providers.digitalocean.clientId"}}
             <label for="backend-add-digitalocean-api-key">3. API Key:</label>
             {{view Mist.TextField data-theme="a"
                     type="password"
                     id="backend-add-digitalocean-api-key"
-                    valueBinding="Mist.backendAddController.digitalocean.apiKey"}}
+                    valueBinding="Mist.backendAddController.providers.digitalocean.apiKey"}}
         </div>
 
         <!--
@@ -186,19 +186,19 @@
             <label for="backend-add-docker-host">2. Host:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-docker-host"
-                   valueBinding="Mist.backendAddController.docker.host"}}
+                   valueBinding="Mist.backendAddController.providers.docker.host"}}
             <label for="backend-add-docker-port">3. Port:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-docker-port"
-                   valueBinding="Mist.backendAddController.docker.port"}}
+                   valueBinding="Mist.backendAddController.providers.docker.port"}}
             <label for="backend-add-docker-user">4. BasicAuth User:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-docker-user"
-                   valueBinding="Mist.backendAddController.docker.user"}}
+                   valueBinding="Mist.backendAddController.providers.docker.user"}}
             <label for="backend-add-docker-password">5. BasicAuth Password:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-docker-password"
-                   valueBinding="Mist.backendAddController.docker.password"}}
+                   valueBinding="Mist.backendAddController.providers.docker.password"}}
         </div>
 
         <!--
@@ -211,20 +211,20 @@
             <label for="backend-add-openstack-username">2. Username:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-openstack-username"
-                    valueBinding="Mist.backendAddController.openstack.username"}}
+                    valueBinding="Mist.backendAddController.providers.openstack.username"}}
             <label for="backend-add-openstack-password">3. Password:</label>
             {{view Mist.TextField data-theme="a"
                     type="password"
                     id="backend-add-openstack-password"
-                    valueBinding="Mist.backendAddController.openstack.password"}}
+                    valueBinding="Mist.backendAddController.providers.openstack.password"}}
             <label for="backend-add-openstack-auth-url">4. Auth URL:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-openstack-auth-url"
-                    valueBinding="Mist.backendAddController.openstack.authURL"}}
+                    valueBinding="Mist.backendAddController.providers.openstack.authURL"}}
             <label for="backend-add-openstack-tenant-name">5. Tenant Name:</label>
             {{view Mist.TextField data-theme="a"
                     id="backend-add-openstack-tenant-name"
-                    valueBinding="Mist.backendAddController.openstack.tenantName"}}
+                    valueBinding="Mist.backendAddController.providers.openstack.tenantName"}}
             <select id="backend-add-openstack-advanced-toggle"
                 data-role="slider" data-theme="a"
                 {{action "advancedToggled" target="view" on="change"}}>
@@ -235,11 +235,11 @@
                 <label for="backend-add-openstack-region">6. Region:</label>
                 {{view Mist.TextField data-theme="a"
                         id="backend-add-openstack-region"
-                        valueBinding="Mist.backendAddController.openstack.region"}}
+                        valueBinding="Mist.backendAddController.providers.openstack.region"}}
                 <label for="backend-add-openstack-compute-endpoint">7. Compute Endpoint:</label>
                 {{view Mist.TextField data-theme="a"
                         id="backend-add-openstack-compute-endpoint"
-                        valueBinding="Mist.backendAddController.openstack.computeEndpoint"}}
+                        valueBinding="Mist.backendAddController.providers.openstack.computeEndpoint"}}
             </div>
         </div>
 
@@ -253,15 +253,15 @@
             <label for="backend-add-bare_metal-host">2. Hostname:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-bare_metal-host"
-                   valueBinding="Mist.backendAddController.bare_metal.host"}}
+                   valueBinding="Mist.backendAddController.providers.bare_metal.host"}}
             <label for="backend-add-bare_metal-user">3. User:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-bare_metal-user"
-                   valueBinding="Mist.backendAddController.bare_metal.user"}}
+                   valueBinding="Mist.backendAddController.providers.bare_metal.user"}}
             <label for="backend-add-bare_metal-port">4. Port:</label>
             {{view Mist.TextField data-theme="a"
                    id="backend-add-bare_metal-port"
-                   valueBinding="Mist.backendAddController.bare_metal.port"}}
+                   valueBinding="Mist.backendAddController.providers.bare_metal.port"}}
             <label>5. SSH Key:</label>
             <div id="backend-add-bare_metal-key"
                 class="mist-select"
@@ -271,7 +271,7 @@
                 data-expanded-icon="carat-u"
                 data-collapsed-icon="carat-d">
 
-                <h2>{{Mist.backendAddController.bare_metal.key.id}}</h2>
+                <h2>{{Mist.backendAddController.providers.bare_metal.key.id}}</h2>
                 <ul data-role="listview">
                     {{#each Mist.keysController.content}}
                         <li data-icon="false" data-theme="a">
