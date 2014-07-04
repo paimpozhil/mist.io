@@ -63,37 +63,50 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                 ).popup( "option", "dismissible", false ).popup('open');
 
                 $(window).on('resize', function(){
-                    var w, h, fontSize=18, wc, hc;
-
-                    while (true){
-                        wc = hc = false;
+                    var columns = 80, lines = 8;  // minimums
+                    var charWidth = charHeight = 0;
+                    var maxWidth = window.innerWidth - 46;
+                    var maxHeight = window.innerHeight - virtualKeyboardHeight() - 135;
+                    // calculate fontSize
+                    for (var fontSize = 6; fontSize < 12; fontSize++) {
                         $('.fontSizeTest').css('font-size', fontSize + 'px');
-
-                        w = $('.fontSizeTest').width() * 80;
-
-                        if (w > window.innerWidth - 46){
-                            wc = true;
-                            warn('width constrained');
-                        }
-
-                        h = $('.fontSizeTest').height() * 24;
-
-                        if (h > window.innerHeight-virtualKeyboardHeight() - 135){ //42.4 + 16 + 8 + 1 + 11.2 + 20 + 11.2 + 1 + 8 + 16
-                            hc = true;
-                            warn('height constrained');
-                        }
-
-                        if ((!wc && !hc) || fontSize <= 6){
+                        charWidth = $('.fontSizeTest').width();
+                        charHeight = $('.fontSizeTest').height();
+                        width = charWidth * columns;
+                        height = charHeight * lines;
+                        if (width > maxWidth || height > maxHeight) {
                             break;
                         }
-
-                        fontSize -= 1;
                     }
-
+                    // calculate number of columns
+                    while (true) {
+                        width = columns * charWidth;
+                        if (width > maxWidth) {
+                            break;
+                        }
+                        columns++;
+                    }
+                    // calculate number of lines
+                    while (true) {
+                        height = lines * charHeight;
+                        if (height > maxHeight) {
+                            break;
+                        }
+                        lines++;
+                    }
+                    warn(fontSize);
+                    warn(columns);
+                    warn(lines);
+                    warn(width);
+                    warn(height);
+                    if (Mist.term) {
+                        Mist.term.resize(columns, lines);
+                        Mist.shell.emit('shell_resize', columns, lines);
+                    }
                     $('#shell-return').css('font-size', fontSize + 'px');
 
-                    $('#shell-return').width(w);
-                    $('#shell-return').height(h);
+                    $('#shell-return').width(width + 2);  // +2 to avoid wrapping issues
+                    $('#shell-return').height(height);
 
                     // Put popup it in the center
                     $('#machine-shell-popup-popup').css('left', ((window.innerWidth - $('#machine-shell-popup-popup').width())/2)+'px');
