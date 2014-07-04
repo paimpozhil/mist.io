@@ -62,8 +62,8 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                     }
                 ).popup( "option", "dismissible", false ).popup('open');
 
-                $(window).on('resize', function(){
-                    var columns = 80, lines = 8;  // minimums
+                var resize = function() {
+                    var columns = 80, rows = 8;  // minimums
                     var charWidth = charHeight = 0;
                     var maxWidth = window.innerWidth - 46;
                     var maxHeight = window.innerHeight - virtualKeyboardHeight() - 135;
@@ -73,7 +73,7 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                         charWidth = $('.fontSizeTest').width();
                         charHeight = $('.fontSizeTest').height();
                         width = charWidth * columns;
-                        height = charHeight * lines;
+                        height = charHeight * rows;
                         if (width > maxWidth || height > maxHeight) {
                             break;
                         }
@@ -86,22 +86,22 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                         }
                         columns++;
                     }
-                    // calculate number of lines
+                    // calculate number of rows
                     while (true) {
-                        height = lines * charHeight;
+                        height = rows * charHeight;
                         if (height > maxHeight) {
                             break;
                         }
-                        lines++;
+                        rows++;
                     }
                     warn(fontSize);
                     warn(columns);
-                    warn(lines);
+                    warn(rows);
                     warn(width);
                     warn(height);
                     if (Mist.term) {
-                        Mist.term.resize(columns, lines);
-                        Mist.shell.emit('shell_resize', columns, lines);
+                        Mist.term.resize(columns, rows);
+                        Mist.shell.emit('shell_resize', columns, rows);
                     }
                     $('#shell-return').css('font-size', fontSize + 'px');
 
@@ -119,14 +119,20 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                         $(Terminal._textarea).width('100%');
                         $(Terminal._textarea).height($('#shell-return').height() + 60);
                     }
+                    return [columns, rows]
+                }
 
+                $(window).on('resize', function() {
+                    resize();
                     return true;
                 });
-                $(window).trigger('resize');
+                size = resize();
+                columns = size[0];
+                rows = size[1];
 
                 var term = new Terminal({
-                  cols: 80,
-                  rows: 24,
+                  cols: columns,
+                  rows: rows,
                   screenKeys: true
                 });
                 term.on('data', function(data) {
@@ -137,7 +143,9 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
 
                 var payload = {'backend_id': machine.backend.id,
                                'machine_id': machine.id,
-                               'host': host
+                               'host': host,
+                               'columns': columns,
+                               'rows': rows,
                                };
                 Mist.shell.emit('shell_open', payload);
                 Mist.shell.firstData = true;

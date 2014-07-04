@@ -51,7 +51,9 @@ class ShellNamespace(BaseNamespace):
         log.info("opened shell")
         self.shell = Shell(data['host'])
         key_id, ssh_user = self.shell.autoconfigure(self.user, data['backend_id'], data['machine_id'])
-        self.channel = self.shell.ssh.invoke_shell('xterm')
+        columns = data.get('columns', 80)
+        rows = data.get('rows', 24)
+        self.channel = self.shell.ssh.invoke_shell('xterm', columns, rows)
         self.spawn(self.get_ssh_data)
 
     def on_shell_close(self):
@@ -62,10 +64,10 @@ class ShellNamespace(BaseNamespace):
     def on_shell_data(self, data):
         self.channel.send(data)
 
-    def on_shell_resize(self, columns, lines):
-        log.warning("Resizing shell to %d * %d", columns, lines)
+    def on_shell_resize(self, columns, rows):
+        log.warning("Resizing shell to %d * %d", columns, rows)
         try:
-            self.channel.resize_pty(columns, lines)
+            self.channel.resize_pty(columns, rows)
         except:
             pass
 
