@@ -111,10 +111,7 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                     // Put popup it in the center
                     $('#machine-shell-popup-popup').css('left', ((window.innerWidth - $('#machine-shell-popup-popup').width())/2)+'px');
 
-
-                    if (Terminal._textarea){ // Tap should trigger resize on touchscreens
-
-                    } else
+                    if (!Terminal._textarea)
                         $('.terminal').focus();
 
                     // Make the hidden textfield focusable on android
@@ -122,12 +119,6 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                         $(Terminal._textarea).width('100%');
                         $(Terminal._textarea).height($('#shell-return').height() + 60);
                     }
-                    /*
-                    if (Terminal._textarea){
-                        $('html, body').animate({
-                                            scrollTop: $('#shell-return').offset().top+(Mist.term.y-5)*$('#shell-return').height()/24
-                                        }, 500);
-                    }*/
 
                     return true;
                 });
@@ -160,17 +151,17 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                 term.write('Connecting to ' + host + '...\r\n');
                 Mist.set('term', term);
 
-
-
                 if(Terminal._textarea) {
                     // iOS virtual keyboard focus fix
                     $(document).off('focusin');
 
+                    // Tap should trigger resize on Android for virtual keyboard to appear
                     if (Mist.term && Mist.term.isAndroid){
                         $('#shell-return').bind('tap',function(){
                             $(window).trigger('resize');
                         });
                     }
+                    $(Terminal._textarea).show();
                 }
 
             },
@@ -184,6 +175,9 @@ define('app/controllers/machine_shell', ['app/models/command', 'ember'],
                 $(window).off('resize');
                 this._clear();
                 $('.ui-footer').show(500);
+                if (Terminal._textarea)
+                    $(Terminal._textarea).hide();
+
             },
 
             /**
