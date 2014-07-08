@@ -1788,7 +1788,8 @@ def _undeploy_collectd(user, backend_id, machine_id, host):
         "[ -f /etc/cron.d/mistio-collectd ] && $sudo rm -f /etc/cron.d/mistio-collectd || "
         "$sudo su -c 'cat /etc/rc.local | grep -v mistio-collectd > /etc/rc.local';"
         "$sudo /opt/mistio-collectd/collectd.sh stop; "
-        "sleep 2; $sudo kill -9 `cat /opt/mistio-collectd/collectd.pid`"
+        "sleep 2; $sudo kill -9 `cat /opt/mistio-collectd/collectd.pid`;"
+        "exit 0;"
     )
 
     async_ssh_command.delay(user.email, backend_id, machine_id, host, command)
