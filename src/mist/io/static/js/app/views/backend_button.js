@@ -1,14 +1,14 @@
-define('app/views/backend_button', ['ember'],
+define('app/views/backend_button', ['app/views/templated', 'ember'],
     //
     //  Backend Button View
     //
     //  @returns Class
     //
-    function() {
+    function(TemplatedView) {
 
         'use strict';
 
-        return Ember.View.extend({
+        return TemplatedView.extend({
 
 
             //
@@ -18,10 +18,7 @@ define('app/views/backend_button', ['ember'],
             //
 
 
-            tagName: 'a',
             backend: null,
-            attributeBindings: ['data-role', 'data-icon'],
-            template: Ember.Handlebars.compile('{{title}}'),
 
 
             //
@@ -32,25 +29,29 @@ define('app/views/backend_button', ['ember'],
 
 
             load: function() {
-                var btnElement = $('#'+this.elementId);
-                if (btnElement.button) {
-                    btnElement.button();
-                    if ($('#backend-buttons').controlgroup) {
-                        $('#backend-buttons').controlgroup('refresh');
-                    }
-                    this.stateObserver();
-                } else {
-                    Ember.run.later(this, this.load, 100);
-                }
+                Ember.run.next(this, function () {
+                   this.stateObserver();
+                   this.refreshControlGroup();
+                });
             }.on('didInsertElement'),
 
 
             unload: function() {
-                Ember.run.next(function() {
-                    if ($('#backend-buttons').controlgroup)
-                        $('#backend-buttons').controlgroup('refresh');
-                });
+                Ember.run.next(this.refreshControlGroup);
             }.on('willDestroyElement'),
+
+
+            //
+            //
+            //  Methods
+            //
+            //
+
+
+            refreshControlGroup: function () {
+                if ($('#backend-buttons').controlgroup)
+                    $('#backend-buttons').controlgroup('refresh');
+            },
 
 
             //
@@ -75,7 +76,7 @@ define('app/views/backend_button', ['ember'],
 
 
             stateObserver: function() {
-                var parent = $('#' + this.elementId).parent()
+                var parent = $('#' + this.elementId);
                 parent.removeClass(
                     'ui-icon-check ui-icon-offline ui-icon-waiting');
                 if (this.backend.state == 'online')

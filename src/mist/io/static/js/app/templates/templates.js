@@ -3,6 +3,7 @@ define('app/templates/templates', ['ember'], function() {
 if (!JS_BUILD) {
   require([
     'text!app/templates/backend_add.html',
+    'text!app/templates/backend_button.html',
     'text!app/templates/backend_edit.html',
     'text!app/templates/confirmation_dialog.html',
     'text!app/templates/file_upload.html',
@@ -40,40 +41,41 @@ if (!JS_BUILD) {
     'ember'],
   function() {
     Ember.TEMPLATES['backend_add/html'] = Ember.Handlebars.compile(arguments[0]);
-    Ember.TEMPLATES['backend_edit/html'] = Ember.Handlebars.compile(arguments[1]);
-    Ember.TEMPLATES['confirmation_dialog/html'] = Ember.Handlebars.compile(arguments[2]);
-    Ember.TEMPLATES['file_upload/html'] = Ember.Handlebars.compile(arguments[3]);
-    Ember.TEMPLATES['graph/html'] = Ember.Handlebars.compile(arguments[4]);
-    Ember.TEMPLATES['graph_button/html'] = Ember.Handlebars.compile(arguments[5]);
-    Ember.TEMPLATES['home/html'] = Ember.Handlebars.compile(arguments[6]);
-    Ember.TEMPLATES['image_list/html'] = Ember.Handlebars.compile(arguments[7]);
-    Ember.TEMPLATES['image_list_item/html'] = Ember.Handlebars.compile(arguments[8]);
-    Ember.TEMPLATES['key/html'] = Ember.Handlebars.compile(arguments[9]);
-    Ember.TEMPLATES['key_add/html'] = Ember.Handlebars.compile(arguments[10]);
-    Ember.TEMPLATES['key_edit/html'] = Ember.Handlebars.compile(arguments[11]);
-    Ember.TEMPLATES['key_list/html'] = Ember.Handlebars.compile(arguments[12]);
-    Ember.TEMPLATES['key_list_item/html'] = Ember.Handlebars.compile(arguments[13]);
-    Ember.TEMPLATES['login/html'] = Ember.Handlebars.compile(arguments[14]);
-    Ember.TEMPLATES['machine/html'] = Ember.Handlebars.compile(arguments[15]);
-    Ember.TEMPLATES['machine_add/html'] = Ember.Handlebars.compile(arguments[16]);
-    Ember.TEMPLATES['machine_keys/html'] = Ember.Handlebars.compile(arguments[17]);
-    Ember.TEMPLATES['machine_keys_list_item/html'] = Ember.Handlebars.compile(arguments[18]);
-    Ember.TEMPLATES['machine_list/html'] = Ember.Handlebars.compile(arguments[19]);
-    Ember.TEMPLATES['machine_list_item/html'] = Ember.Handlebars.compile(arguments[20]);
-    Ember.TEMPLATES['machine_manual_monitoring/html'] = Ember.Handlebars.compile(arguments[21]);
-    Ember.TEMPLATES['machine_power/html'] = Ember.Handlebars.compile(arguments[22]);
-    Ember.TEMPLATES['machine_shell/html'] = Ember.Handlebars.compile(arguments[23]);
-    Ember.TEMPLATES['machine_shell_list_item/html'] = Ember.Handlebars.compile(arguments[24]);
-    Ember.TEMPLATES['machine_tags/html'] = Ember.Handlebars.compile(arguments[25]);
-    Ember.TEMPLATES['machine_tags_list_item/html'] = Ember.Handlebars.compile(arguments[26]);
-    Ember.TEMPLATES['messagebox/html'] = Ember.Handlebars.compile(arguments[27]);
-    Ember.TEMPLATES['metric_add/html'] = Ember.Handlebars.compile(arguments[28]);
-    Ember.TEMPLATES['metric_add_custom/html'] = Ember.Handlebars.compile(arguments[29]);
-    Ember.TEMPLATES['metric_node/html'] = Ember.Handlebars.compile(arguments[30]);
-    Ember.TEMPLATES['monitoring/html'] = Ember.Handlebars.compile(arguments[31]);
-    Ember.TEMPLATES['rule/html'] = Ember.Handlebars.compile(arguments[32]);
-    Ember.TEMPLATES['rule_edit/html'] = Ember.Handlebars.compile(arguments[33]);
-    Ember.TEMPLATES['user_menu/html'] = Ember.Handlebars.compile(arguments[34]);
+    Ember.TEMPLATES['backend_button/html'] = Ember.Handlebars.compile(arguments[1]);
+    Ember.TEMPLATES['backend_edit/html'] = Ember.Handlebars.compile(arguments[2]);
+    Ember.TEMPLATES['confirmation_dialog/html'] = Ember.Handlebars.compile(arguments[3]);
+    Ember.TEMPLATES['file_upload/html'] = Ember.Handlebars.compile(arguments[4]);
+    Ember.TEMPLATES['graph/html'] = Ember.Handlebars.compile(arguments[5]);
+    Ember.TEMPLATES['graph_button/html'] = Ember.Handlebars.compile(arguments[6]);
+    Ember.TEMPLATES['home/html'] = Ember.Handlebars.compile(arguments[7]);
+    Ember.TEMPLATES['image_list/html'] = Ember.Handlebars.compile(arguments[8]);
+    Ember.TEMPLATES['image_list_item/html'] = Ember.Handlebars.compile(arguments[9]);
+    Ember.TEMPLATES['key/html'] = Ember.Handlebars.compile(arguments[10]);
+    Ember.TEMPLATES['key_add/html'] = Ember.Handlebars.compile(arguments[11]);
+    Ember.TEMPLATES['key_edit/html'] = Ember.Handlebars.compile(arguments[12]);
+    Ember.TEMPLATES['key_list/html'] = Ember.Handlebars.compile(arguments[13]);
+    Ember.TEMPLATES['key_list_item/html'] = Ember.Handlebars.compile(arguments[14]);
+    Ember.TEMPLATES['login/html'] = Ember.Handlebars.compile(arguments[15]);
+    Ember.TEMPLATES['machine/html'] = Ember.Handlebars.compile(arguments[16]);
+    Ember.TEMPLATES['machine_add/html'] = Ember.Handlebars.compile(arguments[17]);
+    Ember.TEMPLATES['machine_keys/html'] = Ember.Handlebars.compile(arguments[18]);
+    Ember.TEMPLATES['machine_keys_list_item/html'] = Ember.Handlebars.compile(arguments[19]);
+    Ember.TEMPLATES['machine_list/html'] = Ember.Handlebars.compile(arguments[20]);
+    Ember.TEMPLATES['machine_list_item/html'] = Ember.Handlebars.compile(arguments[21]);
+    Ember.TEMPLATES['machine_manual_monitoring/html'] = Ember.Handlebars.compile(arguments[22]);
+    Ember.TEMPLATES['machine_power/html'] = Ember.Handlebars.compile(arguments[23]);
+    Ember.TEMPLATES['machine_shell/html'] = Ember.Handlebars.compile(arguments[24]);
+    Ember.TEMPLATES['machine_shell_list_item/html'] = Ember.Handlebars.compile(arguments[25]);
+    Ember.TEMPLATES['machine_tags/html'] = Ember.Handlebars.compile(arguments[26]);
+    Ember.TEMPLATES['machine_tags_list_item/html'] = Ember.Handlebars.compile(arguments[27]);
+    Ember.TEMPLATES['messagebox/html'] = Ember.Handlebars.compile(arguments[28]);
+    Ember.TEMPLATES['metric_add/html'] = Ember.Handlebars.compile(arguments[29]);
+    Ember.TEMPLATES['metric_add_custom/html'] = Ember.Handlebars.compile(arguments[30]);
+    Ember.TEMPLATES['metric_node/html'] = Ember.Handlebars.compile(arguments[31]);
+    Ember.TEMPLATES['monitoring/html'] = Ember.Handlebars.compile(arguments[32]);
+    Ember.TEMPLATES['rule/html'] = Ember.Handlebars.compile(arguments[33]);
+    Ember.TEMPLATES['rule_edit/html'] = Ember.Handlebars.compile(arguments[34]);
+    Ember.TEMPLATES['user_menu/html'] = Ember.Handlebars.compile(arguments[35]);
   });
   return;
 }
@@ -307,6 +309,20 @@ function program7(depth0,data) {
   return buffer;
   
 });
+Ember.TEMPLATES["backend_button/html"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', hashTypes, hashContexts, escapeExpression=this.escapeExpression;
+
+
+  data.buffer.push("<a class=\"ui-btn ui-btn-a\">\n	");
+  hashTypes = {};
+  hashContexts = {};
+  data.buffer.push(escapeExpression(helpers._triageMustache.call(depth0, "title", {hash:{},contexts:[depth0],types:["ID"],hashContexts:hashContexts,hashTypes:hashTypes,data:data})));
+  data.buffer.push("\n</a>\n");
+  return buffer;
+  
+});
 Ember.TEMPLATES["backend_edit/html"] = Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
 this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
@@ -318,7 +334,7 @@ function program1(depth0,data) {
   data.buffer.push("\n        <div class=\"ajax-loader\"></div>\n        ");
   }
 
-  data.buffer.push("<div id=\"edit-backend-popup\" \n     class=\"mid-popup\" \n     data-role=\"popup\" \n     data-theme=\"a\" \n     data-overlay-theme=\"b\"\n     data-transition=\"pop\">\n\n    <div data-role=\"header\" data-theme=\"b\">\n        <h1>Edit backend</h1>\n    </div>\n\n    <div data-role=\"content\" data-theme=\"a\">\n\n        ");
+  data.buffer.push("<div id=\"backend-edit\"\n     class=\"mid-popup\"\n     data-role=\"popup\"\n     data-theme=\"a\"\n     data-overlay-theme=\"b\"\n     data-transition=\"pop\">\n\n    <div data-role=\"header\" data-theme=\"b\">\n        <h1>Edit backend</h1>\n    </div>\n\n    <div data-role=\"content\" data-theme=\"a\">\n\n        ");
   hashContexts = {'valueBinding': depth0};
   hashTypes = {'valueBinding': "STRING"};
   data.buffer.push(escapeExpression(helpers.view.call(depth0, "Mist.TextField", {hash:{

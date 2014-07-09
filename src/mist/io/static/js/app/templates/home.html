@@ -21,6 +21,7 @@
                 {{view Mist.backendButtonView
                        backendBinding="this"
                        classBinding="state"
+                       class="ui-btn ui-input-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check"
                        data-icon="check"}}
             {{/each}}
         </div>
@@ -34,7 +35,7 @@
                     <span class="ui-li-count">{{Mist.backendsController.machineCount}}</span>
                 {{/link-to}}
             </li>
-            
+
             <li>
                 {{#link-to "images"}}Images
                     {{#if Mist.backendsController.loadingImages}}
