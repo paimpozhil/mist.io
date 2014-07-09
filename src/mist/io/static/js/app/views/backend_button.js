@@ -1,15 +1,22 @@
 define('app/views/backend_button', ['ember'],
-    /**
-     *  Backend Button View
-     *
-     *  @returns Class
-     */
+    //
+    //  Backend Button View
+    //
+    //  @returns Class
+    //
     function() {
+
+        'use strict';
+
         return Ember.View.extend({
 
-            /**
-             *  Properties
-             */
+
+            //
+            //
+            //  Properties
+            //
+            //
+
 
             tagName: 'a',
             backend: null,
@@ -17,13 +24,14 @@ define('app/views/backend_button', ['ember'],
             template: Ember.Handlebars.compile('{{title}}'),
 
 
-            /**
-             *
-             *  Initialization
-             *
-             */
+            //
+            //
+            //  Initialization
+            //
+            //
 
-            renderButton: function() {
+
+            load: function() {
                 var btnElement = $('#'+this.elementId);
                 if (btnElement.button) {
                     btnElement.button();
@@ -32,27 +40,25 @@ define('app/views/backend_button', ['ember'],
                     }
                     this.stateObserver();
                 } else {
-                    Ember.run.later(this, function() {
-                        this.renderButton();
-                    }, 100);
+                    Ember.run.later(this, this.load, 100);
                 }
             }.on('didInsertElement'),
 
 
-            destroyButton: function() {
+            unload: function() {
                 Ember.run.next(function() {
-                    if ($('#backend-buttons').controlgroup) {
+                    if ($('#backend-buttons').controlgroup)
                         $('#backend-buttons').controlgroup('refresh');
-                    }
                 });
             }.on('willDestroyElement'),
 
 
-            /**
-             *
-             *  Actions
-             *
-             */
+            //
+            //
+            //  Actions
+            //
+            //
+
 
             click: function() {
                 $(Mist.backendEditController.view.popupId).popup(
@@ -61,21 +67,23 @@ define('app/views/backend_button', ['ember'],
             },
 
 
-            /**
-             *
-             *  Observers
-             *
-             */
+            //
+            //
+            //  Observers
+            //
+            //
+
 
             stateObserver: function() {
-                $('#' + this.elementId).parent().removeClass('ui-icon-check ui-icon-offline ui-icon-waiting');
-                if (this.backend.state == 'online') {
-                    $('#' + this.elementId).parent().addClass('ui-icon-check');
-                } else if (this.backend.state == 'offline') {
-                    $('#' + this.elementId).parent().addClass('ui-icon-offline');
-                } else if (this.backend.state == 'waiting') {
-                    $('#' + this.elementId).parent().addClass('ui-icon-waiting');
-                }
+                var parent = $('#' + this.elementId).parent()
+                parent.removeClass(
+                    'ui-icon-check ui-icon-offline ui-icon-waiting');
+                if (this.backend.state == 'online')
+                    parent.addClass('ui-icon-check');
+                else if (this.backend.state == 'offline')
+                    parent.addClass('ui-icon-offline');
+                else if (this.backend.state == 'waiting')
+                    parent.addClass('ui-icon-waiting');
             }.observes('backend.state')
         });
     }

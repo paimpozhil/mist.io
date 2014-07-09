@@ -28,11 +28,6 @@ define('app/views/backend_edit', ['app/views/popup', 'ember'],
             },
 
 
-            close: function () {
-                this._super();
-            },
-
-
             updateEnabledState: function() {
                 if ($('#backend-toggle').slider) {
                     if (Mist.backendEditController.backend) {
@@ -77,11 +72,9 @@ define('app/views/backend_edit', ['app/views/popup', 'ember'],
 
                 yesClicked: function() {
                     $('#button-confirm-disable').addClass('ui-state-disabled');
-                    Mist.backendEditController.deleteBackend(function(success) {
-                        if (success) {
-                            $('#edit-backend-popup').popup('close');
-                            $('#backend-delete-confirm').slideUp();
-                        }
+                    Mist.backendEditController.deleteBackend(function (success) {
+                        if (success)
+                            Mist.backendEditController.close();
                         $('#button-confirm-disable').removeClass('ui-state-disabled');
                     });
                 },
