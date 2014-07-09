@@ -1,17 +1,37 @@
-define('app/views/backend_edit', ['app/views/templated', 'ember'],
-    /**
-     *  Backend Edit View
-     * 
-     *  @returns Class
-     */
-    function(TemplatedView) {
-        return TemplatedView.extend({
+define('app/views/backend_edit', ['app/views/popup', 'ember'],
+    //
+    //  Backend Edit View
+    //
+    //  @returns Class
+    //
+    function(PopupView) {
 
-            /**
-             * 
-             *  Methods
-             * 
-             */
+        'use strict';
+
+        return PopupView.extend({
+
+
+            //
+            //
+            //  Methods
+            //
+            //
+
+
+            open: function () {
+                this._super();
+                $('#monitoring-message').hide();
+                $('#backend-delete-confirm').hide();
+                $('#backend-toggle option[value=1]')[0].selected =
+                    Mist.backendEditController.backend.enabled;
+                $('#backend-toggle').slider('refresh');
+            },
+
+
+            close: function () {
+                this._super();
+            },
+
 
             updateEnabledState: function() {
                 if ($('#backend-toggle').slider) {
@@ -26,26 +46,14 @@ define('app/views/backend_edit', ['app/views/templated', 'ember'],
             },
 
 
-            /**
-             * 
-             *  Observers
-             * 
-             */
+            //
+            //
+            //  Actions
+            //
+            //
 
-            stateObserver: function() {
-                Ember.run.once(this, 'updateEnabledState');
-            }.observes('Mist.backendsController.togglingBackend', 'Mist.backendEditController.backend.state'),
-
-
-
-            /**
-             * 
-             *  Actions
-             * 
-             */
 
             actions: {
-
 
                 stateToggleSwitched: function() {
                     Mist.backendEditController.toggleBackend();
@@ -63,8 +71,7 @@ define('app/views/backend_edit', ['app/views/templated', 'ember'],
 
 
                 backClicked: function() {
-                    $('#backend-delete-confirm').slideUp();
-                    $('#edit-backend-popup').popup('close');
+                    Mist.backendEditController.close();
                 },
 
 
@@ -83,7 +90,21 @@ define('app/views/backend_edit', ['app/views/templated', 'ember'],
                 noClicked: function() {
                     $('#backend-delete-confirm').slideUp();
                 }
-            }
+            },
+
+
+            //
+            //
+            //  Observers
+            //
+            //
+
+
+            stateObserver: function() {
+                Ember.run.once(this, 'updateEnabledState');
+            }.observes(
+                'Mist.backendsController.togglingBackend',
+                'Mist.backendEditController.backend.state'),
         });
     }
 );

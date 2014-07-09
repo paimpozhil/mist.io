@@ -1,7 +1,7 @@
 define('app/views/backend_button', ['ember'],
     /**
      *  Backend Button View
-     * 
+     *
      *  @returns Class
      */
     function() {
@@ -18,9 +18,9 @@ define('app/views/backend_button', ['ember'],
 
 
             /**
-             * 
+             *
              *  Initialization
-             * 
+             *
              */
 
             renderButton: function() {
@@ -49,21 +49,22 @@ define('app/views/backend_button', ['ember'],
 
 
             /**
-             * 
+             *
              *  Actions
-             * 
+             *
              */
 
             click: function() {
-                $('#edit-backend-popup').popup('option', 'positionTo', '#' + this.elementId);
+                $(Mist.backendEditController.view.popupId).popup(
+                    'option', 'positionTo', '#' + this.elementId);
                 Mist.backendEditController.open(this.backend);
             },
 
 
             /**
-             * 
+             *
              *  Observers
-             * 
+             *
              */
 
             stateObserver: function() {
