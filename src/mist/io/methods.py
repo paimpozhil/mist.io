@@ -957,7 +957,6 @@ def _create_machine_nephoscale(conn, key_name, private_key, public_key, script,
         console_keys = conn.ex_list_keypairs(key_group=4)
         if console_keys:
             console_key = console_keys[0].id
-
     with get_temp_file(private_key) as tmp_key_path:
         try:
             node = conn.create_node(
@@ -970,7 +969,7 @@ def _create_machine_nephoscale(conn, key_name, private_key, public_key, script,
                 console_key=console_key,
                 ssh_key=tmp_key_path,
                 connect_attempts=20,
-                nowait=True,
+                ex_wait=True,
                 deploy=deploy_script
             )
         except Exception as e:
