@@ -126,6 +126,7 @@
             </fieldset>
 
             <label>
+                <!-- Default on -->
                 <input data-mini="true" name="alert-reminders" id="alert-reminders" type="checkbox">Send reminders
             </label>
             <label>
@@ -133,7 +134,7 @@
                 Send "ok" when value restores to normal
             </label>
 
-            <label>Message to be included on the mail:</label>
+            <label>Optional message to be included:</label>
             {{view Ember.TextArea name="rule-message"}}
 
             <div data-role="controlgroup" class="btn-full ok-cancel" data-type="horizontal">
