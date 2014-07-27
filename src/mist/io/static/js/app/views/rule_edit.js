@@ -55,6 +55,22 @@ define('app/views/rule_edit', ['app/views/controlled'],
             },
 
 
+            openAlertEditor: function () {
+                Mist.ruleEditController.close('action');
+                Ember.run.later(this, function () {
+                    Mist.ruleEditController.open(this.rule, 'alert');
+                }, 500);
+            },
+
+
+            closeAlertEditor: function () {
+                Mist.ruleEditController.close('alert');
+                Ember.run.later(this, function () {
+                    Mist.ruleEditController.open(this.rule, 'action');
+                }, 500);
+            },
+
+
             openCommandEditor: function () {
                 Mist.ruleEditController.close('action');
                 Ember.run.later(this, function () {
@@ -105,6 +121,8 @@ define('app/views/rule_edit', ['app/views/controlled'],
                 actionClicked: function (action) {
                     if (action == 'command')
                         this.openCommandEditor();
+                    else if (action == 'alert')
+                        this.openAlertEditor();
                     else
                         Mist.ruleEditController.edit({
                             action: action
@@ -112,7 +130,20 @@ define('app/views/rule_edit', ['app/views/controlled'],
                 },
 
 
-                saveClicked: function () {
+                saveAlertClicked: function () {
+                    Mist.ruleEditController.edit({
+                        action: 'alert',
+                        options: 'smth'
+                    });
+                },
+
+
+                backAlertClicked: function () {
+                    this.closeAlertEditor();
+                },
+
+
+                saveCommandClicked: function () {
                     Mist.ruleEditController.edit({
                         action: 'command',
                         command: this.newCommand
@@ -120,9 +151,9 @@ define('app/views/rule_edit', ['app/views/controlled'],
                 },
 
 
-                backClicked: function () {
+                backCommandClicked: function () {
                     this.closeCommandEditor();
-                },
+                }
             }
         });
     }

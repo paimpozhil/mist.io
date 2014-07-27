@@ -91,8 +91,54 @@
                 name="rule-command-content"}}
 
             <div data-role="controlgroup" class="btn-full ok-cancel" data-type="horizontal">
-                <a class="ui-btn ui-btn-a" {{action "backClicked" target="view"}}>Back</a>
-                <a class="ui-btn ui-btn-d" {{action "saveClicked" target="view"}}>Save</a>
+                <a class="ui-btn ui-btn-a" {{action "backCommandClicked" target="view"}}>Back</a>
+                <a class="ui-btn ui-btn-d" {{action "saveCommandClicked" target="view"}}>Save</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="rule-alert-screen" class="ui-popup-screen ui-screen-hidden ui-overlay-b"></div>
+<div id="rule-alert-popup"
+     class="ui-popup-container ui-popup-hidden ui-body-inherit ui-overlay-shadow ui-corner-all large-popup">
+
+    <div id="rule-alert"
+         class="ui-popup ui-corner-all"
+         data-role="popup"
+         data-enhanced="true"
+         data-transition="flip">
+
+        <div class="ui-header ui-bar-b">
+            <h1 class="ui-title">Alert Options</h1>
+        </div>
+
+        <div data-role="content">
+
+            <fieldset data-role="controlgroup" data-mini="true">
+                <legend>Alert level:</legend>
+                <input name="alert-level" id="alert-level-info" value="on" checked="checked" type="radio">
+                <label for="alert-level-info">Info</label>
+                <input name="alert-level" id="alert-level-warn" value="off" type="radio">
+                <label for="alert-level-warn">Warn</label>
+                <input name="alert-level" id="alert-level-critical" value="other" type="radio">
+                <label for="alert-level-critical">Critical</label>
+            </fieldset>
+
+            <label>
+                <input data-mini="true" name="alert-reminders" id="alert-reminders" type="checkbox">Send reminders
+            </label>
+            <label>
+                <input data-mini="true" name="alert-send-ok" id="alert-send-ok" type="checkbox">
+                Send "ok" when value restores to normal
+            </label>
+
+            <label>Message to be included on the mail:</label>
+            {{view Ember.TextArea name="rule-message"}}
+
+            <div data-role="controlgroup" class="btn-full ok-cancel" data-type="horizontal">
+                <a class="ui-btn ui-btn-a" {{action "backAlertClicked" target="view"}}>Back</a>
+                <a class="ui-btn ui-btn-d" {{action "saveAlertClicked" target="view"}}>Save</a>
             </div>
         </div>
     </div>
